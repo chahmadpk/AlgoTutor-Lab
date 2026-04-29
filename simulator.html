@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulator | AlgoTutor LAB</title>
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .comparison-grid-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            width: 100%;
+            padding: 10px;
+        }
+        .mini-grid-container {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .stats-panel {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+        .stats-panel b { color: var(--primary); }
+
+        .mode-info-btn {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 1.5px solid var(--border);
+            background: var(--muted-bg);
+            color: var(--text-muted);
+            font-size: 12px;
+            font-family: serif;
+            font-style: italic;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .mode-info-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 4L26 9.5V22.5L16 28L6 22.5V9.5L16 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="16" cy="16" r="3" fill="currentColor"/>
+                <path d="M16 7V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M16 19V25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M8.5 21L13.5 18.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M18.5 13.5L23.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M8.5 11L13.5 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M18.5 18.5L23.5 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            AlgoTutor LAB
+        </a>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div class="hamburger" id="menuToggle">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="simulator.html" class="active">Simulator</a></li>
+                <li class="nav-dropdown">
+                    <a href="learn.html">Learn</a>
+                    <ul class="dropdown-content">
+                        <li><a href="algorithms/astar.html">A* Search</a></li>
+                        <li><a href="algorithms/bfs.html">BFS</a></li>
+                        <li><a href="algorithms/dfs.html">DFS</a></li>
+                        <li><a href="algorithms/greedy.html">Greedy BFS</a></li>
+                        <li><a href="algorithms/dijkstra.html">Dijkstra</a></li>
+                    </ul>
+                </li>
+                <li><a href="developer.html">Developer</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌙</button>
+        </div>
+    </header>
+
+    <div class="algo-config" id="configPanel">
+        <!-- Algorithm Selection Section -->
+        <div style="width: 100%; border-bottom: 2px solid var(--border); padding-bottom: 1.5rem; margin-bottom: 1.5rem;">
+            <span class="section-tag" style="text-align: center; margin-bottom: 1rem;">Select Algorithms (Max 3)</span>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+                <label class="algo-label">
+                    <span>A* Algorithm</span>
+                    <input type="checkbox" class="algo-check" value="astar" checked style="display: none;">
+                    <div class="custom-checkbox"></div>
+                </label>
+                <label class="algo-label">
+                    <span>BFS</span>
+                    <input type="checkbox" class="algo-check" value="bfs" style="display: none;">
+                    <div class="custom-checkbox"></div>
+                </label>
+                <label class="algo-label">
+                    <span>DFS</span>
+                    <input type="checkbox" class="algo-check" value="dfs" style="display: none;">
+                    <div class="custom-checkbox"></div>
+                </label>
+                <label class="algo-label">
+                    <span>Greedy BFS</span>
+                    <input type="checkbox" class="algo-check" value="greedy" style="display: none;">
+                    <div class="custom-checkbox"></div>
+                </label>
+                <label class="algo-label">
+                    <span>Dijkstra's</span>
+                    <input type="checkbox" class="algo-check" value="dijkstra" style="display: none;">
+                    <div class="custom-checkbox"></div>
+                </label>
+            </div>
+            <p id="selectionLimitMsg" style="color: var(--danger); font-size: 0.75rem; font-weight: 700; margin-top: 0.5rem; display: none;">Maximum 3 algorithms allowed!</p>
+        </div>
+
+        <!-- Mode Selection Section -->
+        <div style="width: 100%; display: flex; flex-direction: column; gap: 1rem; align-items: center; margin-bottom: 1.5rem;">
+            <span class="section-tag" style="margin-bottom: 0;">Editor Modes</span>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+                <div style="display: flex; align-items: center; background: var(--muted-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
+                    <button id="wallModeBtn" class="btn btn-secondary active-mode" style="min-width: 130px; border: none; border-radius: 0;">Obstacle Mode</button>
+                    <div style="width: 1px; height: 100%; background: var(--border);"></div>
+                    <button class="mode-info-btn" data-info="wall" style="border: none; border-radius: 0; height: 100%; width: 40px; background: transparent;">i</button>
+                </div>
+                <div style="display: flex; align-items: center; background: var(--muted-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
+                    <button id="weightModeBtn" class="btn btn-secondary" style="min-width: 130px; border: none; border-radius: 0;">Cost Mode</button>
+                    <div style="width: 1px; height: 100%; background: var(--border);"></div>
+                    <button class="mode-info-btn" data-info="cost" style="border: none; border-radius: 0; height: 100%; width: 40px; background: transparent;">i</button>
+                </div>
+                <div style="display: flex; align-items: center; background: var(--muted-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
+                    <button id="hybridModeBtn" class="btn btn-secondary" style="min-width: 130px; border: none; border-radius: 0;">Hybrid Mode</button>
+                    <div style="width: 1px; height: 100%; background: var(--border);"></div>
+                    <button class="mode-info-btn" data-info="hybrid" style="border: none; border-radius: 0; height: 100%; width: 40px; background: transparent;">i</button>
+                </div>
+            </div>
+
+            <!-- Hybrid Specific Tools -->
+            <div id="hybridTools" style="display: none; gap: 10px; background: rgba(56, 189, 248, 0.05); padding: 10px 20px; border-radius: 10px; border: 1px dashed var(--primary);">
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-sec);">Hybrid Brush:</span>
+                <button id="brushWallBtn" class="btn btn-secondary btn-small active-mode" style="padding: 5px 15px; font-size: 0.7rem;">Add Obstacle</button>
+                <button id="brushCostBtn" class="btn btn-secondary btn-small" style="padding: 5px 15px; font-size: 0.7rem;">Add Cost</button>
+            </div>
+        </div>
+
+        <!-- Working Buttons Section -->
+        <div class="simulator-controls" style="width: 100%; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; border-top: 1px solid var(--border); margin-top: 0.5rem; padding-top: 1.5rem;">
+            <button id="runBtn" class="btn btn-primary" style="padding: 12px 32px; font-size: 0.9rem;">Start Simulation</button>
+            <button id="clearNodesBtn" class="btn btn-secondary">Clear Path</button>
+            <button id="clearWallsBtn" class="btn btn-danger">Reset Grid</button>
+        </div>
+    </div>
+
+    <main>
+        <!-- Master Grid for Level Design -->
+        <div id="master-view" class="grid-container">
+            <div class="simulator-header-content">
+                <div>
+                    <h2 style="font-size: 1.5rem; font-weight: 800;">Master Visualization Grid</h2>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Click to place obstacles, drag to draw. Color coding: Start (Green), End (Red), Obstacle (Gray).</p>
+                </div>
+                <div class="legend-container">
+                    <div class="legend-item">
+                        <div style="width: 12px; height: 12px; background: var(--success); border-radius: 2px;"></div> Start
+                    </div>
+                    <div class="legend-item">
+                        <div style="width: 12px; height: 12px; background: var(--danger); border-radius: 2px;"></div> End
+                    </div>
+                    <div class="legend-item">
+                        <div style="width: 12px; height: 12px; background: var(--weight-color); border-radius: 2px;"></div> Cost
+                    </div>
+                    <div class="legend-item">
+                        <div style="width: 12px; height: 12px; background: #475569; border-radius: 2px;"></div> Obstacle
+                    </div>
+                </div>
+            </div>
+            <div id="master-grid" class="grid"></div>
+        </div>
+
+        <!-- Comparison Multi-Grid View -->
+        <div id="comparison-view" class="comparison-grid-view" style="display: none;">
+            <!-- Mini grids injected here -->
+        </div>
+
+        <div id="analysis-view" style="display: none; padding: 2rem 5%; max-width: 1200px; margin: 0 auto;">
+            <div style="background: var(--muted-bg); padding: 2.5rem; border-radius: 20px; border: 1px solid var(--border);">
+                <span class="section-tag">Performance Review</span>
+                <h2 style="font-size: 1.75rem; color: var(--text); margin-bottom: 2rem; font-weight: 800;">How it Worked: Results Analysis</h2>
+                <div id="analysis-content" style="display: grid; gap: 2rem;">
+                    <!-- Injected via script -->
+                </div>
+            </div>
+        </div>
+
+        <div id="infoModal" class="modal-overlay">
+            <div class="modal-container">
+                <button class="modal-close-btn" id="closeModal">&times;</button>
+                <h2 id="infoModalTitle" style="margin-bottom: 1.5rem; color: var(--primary);">Understanding Editor Modes</h2>
+                <div id="infoModalDesc" style="display: grid; gap: 1.5rem;">
+                    <div>
+                        <h4 style="color: var(--text); margin-bottom: 0.5rem;">🧱 Obstacle Mode</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-sec);">These are like walls or closed doors. The computer cannot walk through them and must find a way around.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--text); margin-bottom: 0.5rem;">⚖️ Cost Mode</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-sec);">These are like muddy paths. The computer can walk through them, but it's slower and harder. It will try to find a clean path if it can.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--text); margin-bottom: 0.5rem;">🌀 Hybrid Mode</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-sec);">A mix of walls and mud! Use this to build your own complex maze and test the computer's brain.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="modern-footer">
+        <div class="footer-grid">
+            <div class="footer-section" style="margin-right: 3rem;">
+                <div class="logo" style="margin-bottom: 2rem;">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 4L26 9.5V22.5L16 28L6 22.5V9.5L16 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="16" cy="16" r="3" fill="currentColor"/>
+                        <path d="M16 7V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M16 19V25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M8.5 21L13.5 18.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M18.5 13.5L23.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M8.5 11L13.5 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M18.5 18.5L23.5 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <span style="font-weight: 800; color: var(--text); font-size: 1.2rem; margin-left: 0.5rem;">AlgoTutor LAB</span>
+                </div>
+                <p style="color: var(--text-sec); font-size: 0.95rem; line-height: 1.8; max-width: 320px;">
+                    An advanced interactive platform dedicated to mastering pathfinding algorithms through immersive visualization and theoretical foundations.
+                </p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Algorithms</h4>
+                <ul class="footer-links">
+                    <li><a href="algorithms/astar.html">A* Search</a></li>
+                    <li><a href="algorithms/bfs.html">Breadth-First (BFS)</a></li>
+                    <li><a href="algorithms/dfs.html">Depth-First (DFS)</a></li>
+                    <li><a href="algorithms/greedy.html">Greedy Best-First</a></li>
+                    <li><a href="algorithms/dijkstra.html">Dijkstra's Algorithm</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Platform</h4>
+                <ul class="footer-links">
+                    <li><a href="simulator.html">Simulator</a></li>
+                    <li><a href="learn.html">Learning Lab</a></li>
+                    <li><a href="about.html">Foundation</a></li>
+                    <li><a href="javascript:void(0)" id="openFeedback">Send Feedback</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Stats</h4>
+                <div class="footer-stat-item">
+                    <span class="footer-stat-val">5+</span>
+                    <span>Algorithms</span>
+                </div>
+                <div class="footer-stat-item">
+                    <span class="footer-stat-val">Real-time</span>
+                    <span>Visuals</span>
+                </div>
+                <div class="footer-stat-item">
+                    <span class="footer-stat-val">100%</span>
+                    <span>Free Forever</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>
+                Made with <span class="heart">❤️</span> by 
+                <a href="https://www.linkedin.com/in/muhammadahmadraza" target="_blank" class="dev-link-box">
+                    <svg viewBox="0 0 24 24" width="16" height="16"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    Muhammad Ahmad Raza
+                </a>
+            </div>
+            <div>&copy; 2026 AlgoTutor LAB. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <div id="feedbackModal" class="modal-overlay">
+        <div class="modal-container">
+            <button class="modal-close-btn" id="closeFeedback">&times;</button>
+            <h2 class="modal-title">Send Feedback</h2>
+            <p class="modal-subtitle">Help us improve AlgoTutor LAB with your thoughts.</p>
+            
+            <form id="feedbackForm">
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" id="feedbackEmail" class="form-input" placeholder="your@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Your Message</label>
+                    <textarea id="feedbackMessage" class="form-textarea" placeholder="What's on your mind?" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Feedback Type</label>
+                    <div class="feedback-types">
+                        <div class="type-pill" data-type="Suggestion">Suggestion</div>
+                        <div class="type-pill" data-type="Error">Bug</div>
+                        <div class="type-pill active" data-type="General">General</div>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" id="cancelFeedback" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="js/common.js"></script>
+    <script type="module">
+        import { Node } from './js/core/Node.js';
+        import { AStar } from './js/algorithms/AStar.js';
+        import { BFS } from './js/algorithms/BFS.js';
+        import { DFS } from './js/algorithms/DFS.js';
+        import { Greedy } from './js/algorithms/Greedy.js';
+
+        let ROWS, COLS;
+        function calculateGridSize() {
+            const width = window.innerWidth;
+            const containerPadding = 32; // Total horizontal padding (1rem each side)
+            const availableWidth = width - containerPadding;
+            
+            if (width < 600) {
+                ROWS = 14;
+                COLS = Math.floor(availableWidth / 22); // Each cell is ~22px
+            } else if (width < 1024) {
+                ROWS = 16;
+                COLS = Math.floor(availableWidth / 24); // Each cell is ~24px
+            } else {
+                ROWS = 20;
+                COLS = 40;
+            }
+        }
+        calculateGridSize();
+
+        let masterGrid = [];
+        let startPos = { r: Math.floor(ROWS/2), c: Math.floor(COLS/4) };
+        let endPos = { r: Math.floor(ROWS/2), c: Math.floor(COLS*0.75) };
+        let isDrawing = false;
+        let currentMode = 'wall';
+        let isDraggingStart = false;
+        let isDraggingEnd = false;
+        let isRunning = false;
+        let hasWeights = false;
+
+        let hybridBrush = 'wall';
+
+        // Selection limit logic based on device
+        function getSelectionLimit() {
+            return 3; 
+        }
+
+        const checkboxes = document.querySelectorAll('.algo-check');
+        const limitMsg = document.getElementById('selectionLimitMsg');
+
+        checkboxes.forEach(chk => {
+            chk.addEventListener('change', () => {
+                const limit = getSelectionLimit();
+                const checked = document.querySelectorAll('.algo-check:checked');
+                if (checked.length > limit) {
+                    chk.checked = false;
+                    chk.parentElement.classList.remove('selected');
+                    limitMsg.innerText = `Maximum ${limit} algorithm${limit > 1 ? 's' : ''} allowed on this device!`;
+                    limitMsg.style.display = 'block';
+                    setTimeout(() => limitMsg.style.display = 'none', 3000);
+                } else {
+                    if (chk.checked) chk.parentElement.classList.add('selected');
+                    else chk.parentElement.classList.remove('selected');
+                }
+            });
+            // Initial state
+            if (chk.checked) chk.parentElement.classList.add('selected');
+        });
+
+        function updateNodeUI(r, c, node, el) {
+            if (node.isStart || node.isEnd) return;
+            el.innerHTML = '';
+            el.className = 'node';
+            el.style.backgroundColor = '';
+
+            if (node.isWall) {
+                el.classList.add('wall');
+            } else if (node.weight > 1) {
+                el.style.backgroundColor = `rgba(6, 95, 70, ${0.1 + (node.weight / 10)})`;
+                el.innerHTML = `<span class="node-weight-text">${node.weight}</span>`;
+            }
+        }
+
+        function initMasterGrid() {
+            calculateGridSize(); // Ensure we have latest size
+            startPos = { r: Math.floor(ROWS/2), c: Math.floor(COLS/4) };
+            endPos = { r: Math.floor(ROWS/2), c: Math.floor(COLS*0.75) };
+            
+            const gridEl = document.getElementById('master-grid');
+            gridEl.innerHTML = ''; // Clear for re-init
+            gridEl.style.gridTemplateColumns = `repeat(${COLS}, 1fr)`;
+            
+            for (let r = 0; r < ROWS; r++) {
+                masterGrid[r] = [];
+                for (let c = 0; c < COLS; c++) {
+                    const node = new Node(r, c);
+                    masterGrid[r][c] = node;
+                    
+                    const el = document.createElement('div');
+                    el.className = 'node';
+                    el.id = `master-${r}-${c}`;
+                    
+                    if (r === startPos.r && c === startPos.c) { node.isStart = true; el.classList.add('start'); }
+                    if (r === endPos.r && c === endPos.c) { node.isEnd = true; el.classList.add('end'); }
+
+                    el.onmousedown = (e) => {
+                        if (isRunning) return;
+                        if (node.isStart) {
+                            isDraggingStart = true;
+                        } else if (node.isEnd) {
+                            isDraggingEnd = true;
+                        } else {
+                            isDrawing = true;
+                            if (currentMode === 'weight') {
+                                if (node.isWall) return;
+                                node.weight = node.weight === 1 ? Math.floor(Math.random() * 8) + 2 : 1;
+                                hasWeights = masterGrid.some(row => row.some(n => n.weight > 1));
+                            } else if (currentMode === 'wall') {
+                                node.isWall = !node.isWall;
+                                node.weight = 1;
+                            } else if (currentMode === 'hybrid') {
+                                if (hybridBrush === 'wall') {
+                                    node.isWall = !node.isWall;
+                                    node.weight = 1;
+                                } else {
+                                    node.isWall = false;
+                                    node.weight = node.weight === 1 ? Math.floor(Math.random() * 8) + 2 : 1;
+                                }
+                            }
+                            updateNodeUI(r, c, node, el);
+                        }
+                    };
+
+                    el.onmouseenter = (e) => {
+                        if (isRunning) return;
+                        if (isDraggingStart) {
+                            if (node.isEnd || node.isWall) return;
+                            moveStart(r, c);
+                        } else if (isDraggingEnd) {
+                            if (node.isStart || node.isWall) return;
+                            moveEnd(r, c);
+                        } else if (isDrawing) {
+                            if (node.isStart || node.isEnd) return;
+                            if (currentMode === 'weight') {
+                                if (node.isWall) return;
+                                node.weight = Math.floor(Math.random() * 8) + 2;
+                                hasWeights = true;
+                            } else if (currentMode === 'wall') {
+                                node.isWall = true;
+                                node.weight = 1;
+                            } else if (currentMode === 'hybrid') {
+                                if (hybridBrush === 'wall') {
+                                    node.isWall = true;
+                                    node.weight = 1;
+                                } else {
+                                    node.isWall = false;
+                                    node.weight = Math.floor(Math.random() * 8) + 2;
+                                }
+                                hasWeights = true;
+                            }
+                            updateNodeUI(r, c, node, el);
+                        }
+                    };
+                    gridEl.appendChild(el);
+                }
+            }
+            window.addEventListener('mouseup', () => {
+                isDrawing = false;
+                isDraggingStart = false;
+                isDraggingEnd = false;
+            });
+        }
+
+        function moveStart(r, c) {
+            // Remove old
+            const oldEl = document.getElementById(`master-${startPos.r}-${startPos.c}`);
+            if (oldEl) oldEl.classList.remove('start');
+            masterGrid[startPos.r][startPos.c].isStart = false;
+            
+            // Set new
+            startPos = { r, c };
+            masterGrid[r][c].isStart = true;
+            document.getElementById(`master-${r}-${c}`).classList.add('start');
+        }
+
+        function moveEnd(r, c) {
+            // Remove old
+            const oldEl = document.getElementById(`master-${endPos.r}-${endPos.c}`);
+            if (oldEl) oldEl.classList.remove('end');
+            masterGrid[endPos.r][endPos.c].isEnd = false;
+            
+            // Set new
+            endPos = { r, c };
+            masterGrid[r][c].isEnd = true;
+            document.getElementById(`master-${r}-${c}`).classList.add('end');
+        }
+
+        async function startVisualization() {
+            if (isRunning) return;
+            const checked = Array.from(document.querySelectorAll('.algo-check:checked')).slice(0, 3);
+            if (checked.length === 0) {
+                alert("Please select at least one algorithm.");
+                return;
+            }
+
+            isRunning = true;
+            document.getElementById('master-view').style.display = 'none';
+            document.getElementById('analysis-view').style.display = 'none';
+            const compView = document.getElementById('comparison-view');
+            compView.style.display = 'grid';
+            compView.innerHTML = '';
+
+            const tasks = checked.map(chk => prepareRun(chk.value));
+            
+            // Run all tasks concurrently
+            await Promise.all(tasks.map(t => t.run()));
+            
+            showAnalysis(checked.map(c => c.value));
+            isRunning = false;
+        }
+
+        function showAnalysis(selectedAlgos) {
+            const analysisView = document.getElementById('analysis-view');
+            const analysisContent = document.getElementById('analysis-content');
+            analysisView.style.display = 'block';
+            analysisContent.innerHTML = '';
+
+            const data = {
+                astar: { 
+                    title: "A* Algorithm", 
+                    desc: "A* combined the actual distance from start (g-cost) with the heuristic (h-cost) to focus its search directly toward the goal. It was likely the most efficient in terms of nodes visited while still finding the shortest path." 
+                },
+                bfs: { 
+                    title: "BFS (Breadth-First)", 
+                    desc: "BFS explored in growing circles around the start. It visited many nodes but guaranteed the true shortest path. It works blindly, spreading in all directions until it hits the target." 
+                },
+                dfs: { 
+                    title: "DFS (Depth-First)", 
+                    desc: "DFS dove deep into one direction until it hit a wall, then backtracked. It is often faster to reach the goal area but rarely finds the shortest path, leading to the long winding line you see." 
+                },
+                greedy: { 
+                    title: "Greedy BFS", 
+                    desc: "Greedy only looked at the target (h-cost). It headed directly for the end goal without considering how far it had already traveled. If there were no complex obstacles, it was very fast but might have found a suboptimal path." 
+                },
+                dijkstra: { 
+                    title: "Dijkstra's", 
+                    desc: "Dijkstra's behaved like BFS on this uniform grid. It calculated the exact cost of reaching every node from the start, ensuring an optimal path by exploring all possibilities equally." 
+                }
+            };
+
+            selectedAlgos.forEach(algo => {
+                const item = data[algo];
+                const div = document.createElement('div');
+                div.style.borderLeft = '4px solid var(--primary)';
+                div.style.paddingLeft = '1.5rem';
+                div.innerHTML = `
+                    <h4 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 0.5rem; text-transform: uppercase; font-weight: 800;">${item.title}</h4>
+                    <p style="color: var(--text-sec); font-size: 0.95rem; line-height: 1.6;">${item.desc}</p>
+                `;
+                analysisContent.appendChild(div);
+            });
+        }
+
+        function prepareRun(algoType) {
+            const compView = document.getElementById('comparison-view');
+            const wrapper = document.createElement('div');
+            wrapper.className = 'mini-grid-container';
+            const title = algoType === 'astar' ? 'A*' : algoType === 'bfs' ? 'BFS' : algoType === 'dfs' ? 'DFS' : algoType === 'greedy' ? 'Greedy' : 'Dijkstra';
+            
+            wrapper.innerHTML = `
+                <h3 style="color: var(--primary); margin-bottom: 10px;">${title}</h3>
+                <div id="grid-${algoType}" class="grid" style="grid-template-columns: repeat(${COLS}, 1fr);"></div>
+                <div class="stats-panel">
+                    <span>Visited: <b id="nodes-${algoType}">0</b></span>
+                    <span>Path: <b id="path-${algoType}">0</b></span>
+                    <span id="cost-stat-${algoType}" style="display: ${hasWeights ? 'inline' : 'none'}">Cost: <b id="cost-${algoType}">0</b></span>
+                </div>
+            `;
+            compView.appendChild(wrapper);
+
+            const gridDiv = document.getElementById(`grid-${algoType}`);
+            const localGrid = [];
+            let localStart, localEnd;
+
+            // ISOLATION: Create completely fresh Node instances for this specific grid
+            for (let r = 0; r < ROWS; r++) {
+                localGrid[r] = [];
+                for (let c = 0; c < COLS; c++) {
+                    const masterNode = masterGrid[r][c];
+                    const node = new Node(r, c);
+                    node.isWall = masterNode.isWall;
+                    node.weight = masterNode.weight;
+                    node.isStart = masterNode.isStart;
+                    node.isEnd = masterNode.isEnd;
+                    localGrid[r][c] = node;
+
+                    const el = document.createElement('div');
+                    el.className = 'node';
+                    el.style.aspectRatio = '1/1';
+                    el.id = `node-${algoType}-${r}-${c}`;
+                    if (node.isWall) el.classList.add('wall');
+                    if (node.weight > 1) {
+                        el.style.backgroundColor = `rgba(6, 95, 70, ${0.1 + (node.weight / 10)})`;
+                        el.innerHTML = `<span class="node-weight-text">${node.weight}</span>`;
+                    }
+                    if (node.isStart) { el.classList.add('start'); localStart = node; }
+                    if (node.isEnd) { el.classList.add('end'); localEnd = node; }
+                    gridDiv.appendChild(el);
+                }
+            }
+
+            return {
+                run: async () => {
+                    let pathfinder;
+                    switch(algoType) {
+                        case 'astar': pathfinder = new AStar(localGrid, localStart, localEnd); break;
+                        case 'bfs': pathfinder = new BFS(localGrid, localStart, localEnd); break;
+                        case 'dfs': pathfinder = new DFS(localGrid, localStart, localEnd); break;
+                        case 'greedy': pathfinder = new Greedy(localGrid, localStart, localEnd); break;
+                        case 'dijkstra': pathfinder = new AStar(localGrid, localStart, localEnd); pathfinder.heuristic = () => 0; break;
+                    }
+
+                    const visitedNodes = pathfinder.run();
+                    const path = pathfinder.reconstructPath();
+
+                    // VISUALIZATION: Use specific IDs to avoid global mixups
+                    for (let i = 0; i < visitedNodes.length; i++) {
+                        const n = visitedNodes[i];
+                        if (!n.isStart && !n.isEnd) {
+                            const nodeEl = document.getElementById(`node-${algoType}-${n.row}-${n.col}`);
+                            if (nodeEl) nodeEl.classList.add('visited');
+                            document.getElementById(`nodes-${algoType}`).innerText = i + 1;
+                        }
+                        // Stagger slightly for effect
+                        if (i % 8 === 0) await new Promise(r => setTimeout(r, 1));
+                    }
+
+                    if (path.length > 0) {
+                        for (let i = 0; i < path.length; i++) {
+                            const n = path[i];
+                            if (!n.isStart && !n.isEnd) {
+                                const nodeEl = document.getElementById(`node-${algoType}-${n.row}-${n.col}`);
+                                if (nodeEl) nodeEl.classList.add('path');
+                            }
+                            await new Promise(r => setTimeout(r, 15));
+                        }
+                    }
+                    document.getElementById(`path-${algoType}`).innerText = path.length;
+                    const totalCost = path.reduce((sum, n) => sum + n.weight, 0);
+                    document.getElementById(`cost-${algoType}`).innerText = totalCost;
+                }
+            };
+        }
+
+        document.getElementById('wallModeBtn').onclick = () => {
+            currentMode = 'wall';
+            document.getElementById('wallModeBtn').classList.add('active-mode');
+            document.getElementById('weightModeBtn').classList.remove('active-mode');
+            document.getElementById('hybridModeBtn').classList.remove('active-mode');
+            document.getElementById('hybridTools').style.display = 'none';
+        };
+
+        document.getElementById('weightModeBtn').onclick = () => {
+            currentMode = 'weight';
+            document.getElementById('weightModeBtn').classList.add('active-mode');
+            document.getElementById('wallModeBtn').classList.remove('active-mode');
+            document.getElementById('hybridModeBtn').classList.remove('active-mode');
+            document.getElementById('hybridTools').style.display = 'none';
+        };
+
+        document.getElementById('hybridModeBtn').onclick = () => {
+            currentMode = 'hybrid';
+            document.getElementById('hybridModeBtn').classList.add('active-mode');
+            document.getElementById('wallModeBtn').classList.remove('active-mode');
+            document.getElementById('weightModeBtn').classList.remove('active-mode');
+            document.getElementById('hybridTools').style.display = 'flex';
+        };
+
+        document.getElementById('brushWallBtn').onclick = () => {
+            hybridBrush = 'wall';
+            document.getElementById('brushWallBtn').classList.add('active-mode');
+            document.getElementById('brushCostBtn').classList.remove('active-mode');
+        };
+
+        document.getElementById('brushCostBtn').onclick = () => {
+            hybridBrush = 'cost';
+            document.getElementById('brushCostBtn').classList.add('active-mode');
+            document.getElementById('brushWallBtn').classList.remove('active-mode');
+        };
+
+        const modal = document.getElementById('infoModal');
+        const modalTitle = document.getElementById('infoModalTitle');
+        const modalDesc = document.getElementById('infoModalDesc');
+        
+        document.querySelectorAll('.mode-info-btn').forEach(btn => {
+            btn.onclick = () => {
+                const infoType = btn.getAttribute('data-info');
+                if (infoType === 'wall') {
+                    modalTitle.innerText = "Understanding Obstacle Mode";
+                    modalDesc.innerHTML = `<p style="font-size: 0.95rem; color: var(--text-sec); line-height: 1.6;">Obstacles are like <b>solid walls</b>. The computer is not allowed to walk through them. It has to find a path that goes around these blocks to reach the goal.</p>`;
+                } else if (infoType === 'cost') {
+                    modalTitle.innerText = "Understanding Cost Mode";
+                    modalDesc.innerHTML = `<p style="font-size: 0.95rem; color: var(--text-sec); line-height: 1.6;">Costs are like <b>mud or traffic</b>. The computer <i>can</i> go through them, but it takes more energy. It will look for a faster, cleaner path even if that path is a little longer.</p>`;
+                } else if (infoType === 'hybrid') {
+                    modalTitle.innerText = "Understanding Hybrid Mode";
+                    modalDesc.innerHTML = `<p style="font-size: 0.95rem; color: var(--text-sec); line-height: 1.6;">Hybrid is a <b>mix of both</b>! You can place walls to block paths and mud to slow things down. It's the best way to see how smart an algorithm really is!</p>`;
+                }
+                modal.classList.add('active');
+            };
+        });
+
+        document.getElementById('closeModal').onclick = () => modal.classList.remove('active');
+        window.addEventListener('click', (e) => { 
+            if (e.target === modal) modal.classList.remove('active');
+        });
+
+        document.getElementById('runBtn').onclick = startVisualization;
+        
+        document.getElementById('clearNodesBtn').onclick = () => {
+            if (isRunning) return;
+            // Go back to master view
+            document.getElementById('comparison-view').style.display = 'none';
+            document.getElementById('analysis-view').style.display = 'none';
+            document.getElementById('master-view').style.display = 'flex';
+        };
+
+        document.getElementById('clearWallsBtn').onclick = () => {
+            if (isRunning) return;
+            hasWeights = false;
+            for(let r=0; r<ROWS; r++) {
+                for(let c=0; c<COLS; c++) {
+                    masterGrid[r][c].isWall = false;
+                    masterGrid[r][c].weight = 1;
+                    const el = document.getElementById(`master-${r}-${c}`);
+                    el.classList.remove('wall');
+                    el.style.backgroundColor = '';
+                    el.innerHTML = '';
+                }
+            }
+        };
+
+        window.addEventListener('resize', () => {
+            if (isRunning) return;
+            initMasterGrid();
+        });
+
+        initMasterGrid();
+    </script>
+</body>
+</html>

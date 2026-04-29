@@ -1,0 +1,6 @@
+{
+  "name": "Pathfinding Intelligence Lab",
+  "description": "An advanced educational and simulation platform for learning and visualizing pathfinding algorithms (BFS, DFS, Dijkstra, A*, Greedy).",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

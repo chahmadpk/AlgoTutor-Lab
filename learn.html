@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn | AlgoTutor LAB</title>
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 4L26 9.5V22.5L16 28L6 22.5V9.5L16 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="16" cy="16" r="3" fill="currentColor"/>
+                <path d="M16 7V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M16 19V25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M8.5 21L13.5 18.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M18.5 13.5L23.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M8.5 11L13.5 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M18.5 18.5L23.5 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            AlgoTutor LAB
+        </a>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div class="hamburger" id="menuToggle">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="simulator.html">Simulator</a></li>
+                <li class="nav-dropdown">
+                    <a href="learn.html" class="active">Learn</a>
+                    <ul class="dropdown-content">
+                        <li><a href="algorithms/astar.html">A* Search</a></li>
+                        <li><a href="algorithms/bfs.html">BFS</a></li>
+                        <li><a href="algorithms/dfs.html">DFS</a></li>
+                        <li><a href="algorithms/greedy.html">Greedy BFS</a></li>
+                        <li><a href="algorithms/dijkstra.html">Dijkstra</a></li>
+                    </ul>
+                </li>
+                <li><a href="developer.html">Developer</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌙</button>
+        </div>
+    </header>
+
+    <main style="padding: 3rem 5%; text-align: center;">
+        <h1 style="color: var(--text); font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.5px;">Algorithm Mastery</h1>
+        <p style="color: var(--text-sec); margin-bottom: 1.5rem; font-size: 1rem;">Press <b>Space</b> to flip. Use <b>Arrow Keys</b> to navigate cards.</p>
+
+        <!-- Algorithm Sub-Menu for Mobile/Tablet -->
+        <div class="learn-sub-menu">
+            <span class="section-tag" style="margin-bottom: 1rem; width: 100%;">Algorithm Library</span>
+            <div class="sub-menu-grid">
+                <a href="algorithms/astar.html" class="sub-menu-card">
+                    <div class="sub-menu-icon" style="background: rgba(14, 165, 233, 0.1); color: var(--primary);">A*</div>
+                    <span>A* Search</span>
+                </a>
+                <a href="algorithms/bfs.html" class="sub-menu-card">
+                    <div class="sub-menu-icon" style="background: rgba(34, 197, 94, 0.1); color: var(--success);">BF</div>
+                    <span>Breadth-First</span>
+                </a>
+                <a href="algorithms/dfs.html" class="sub-menu-card">
+                    <div class="sub-menu-icon" style="background: rgba(239, 68, 68, 0.1); color: var(--danger);">DF</div>
+                    <span>Depth-First</span>
+                </a>
+                <a href="algorithms/greedy.html" class="sub-menu-card">
+                    <div class="sub-menu-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--accent);">GB</div>
+                    <span>Greedy Best</span>
+                </a>
+                <a href="algorithms/dijkstra.html" class="sub-menu-card">
+                    <div class="sub-menu-icon" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">DK</div>
+                    <span>Dijkstra</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="flashcard-scene" id="cardContainer">
+            <div class="card" id="flashcard">
+                <div class="card-face card-front">
+                    <span class="section-tag" style="background: var(--primary); color: var(--bg); padding: 2px 8px; border-radius: 4px; margin-bottom: 1.5rem;">Question</span>
+                    <h3 id="question" style="font-weight: 800;">Question</h3>
+                    <div style="height: 1px; width: 60%; background: linear-gradient(to right, transparent, var(--border), transparent); margin: 2rem 0;"></div>
+                    <p style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--primary); letter-spacing: 0.1em;">Click to reveal answer</p>
+                </div>
+                <div class="card-face card-back">
+                    <span class="section-tag" style="background: var(--bg); color: var(--primary); padding: 2px 8px; border-radius: 4px; margin-bottom: 1.5rem;">Answer</span>
+                    <p id="answer" style="font-weight: 600;">Answer</p>
+                    <div style="height: 1px; width: 60%; background: linear-gradient(to right, transparent, rgba(0,0,0,0.1), transparent); margin: 2rem 0;"></div>
+                    <p style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--bg); opacity: 0.8; letter-spacing: 0.1em;">Click to hide</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flashcard-controls">
+            <button id="prevBtn" class="btn btn-secondary nav-btn">&larr; Previous</button>
+            <button id="flipBtn" class="btn btn-primary flip-btn">Reveal</button>
+            <button id="nextBtn" class="btn btn-secondary nav-btn">Next &rarr;</button>
+        </div>
+
+        <!-- Mobile Study Manual (Visible on smaller screens) -->
+        <div class="mobile-manual">
+            <span class="section-tag" style="margin-bottom: 1.5rem;">Study Manual</span>
+            <h2 style="color: var(--text); font-size: 1.75rem; margin-bottom: 2rem; font-weight: 800; letter-spacing: -0.02em;">How to Master This</h2>
+            
+            <div class="manual-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <strong>Navigate Selection</strong>
+                    <p>Use the "Previous" and "Next" buttons to cycle through core pathfinding algorithms. Focus on understanding one logic at a time.</p>
+                </div>
+            </div>
+
+            <div class="manual-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <strong>Test Your Knowledge</strong>
+                    <p>Read the question on the front of the card. Try to visualize how the algorithm handles obstacles before revealing the answer.</p>
+                </div>
+            </div>
+
+            <div class="manual-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <strong>Analyze Comparison</strong>
+                    <p>Tap the card to flip it and read the technical breakdown. Compare the efficiency and complexity ratings (O-notation) provided.</p>
+                </div>
+            </div>
+
+            <div class="manual-step" style="margin-bottom: 0;">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <strong>Further Reading</strong>
+                    <p>Scroll down to the "Deep Dive" section for a structured table comparing performance metrics across all algorithms.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 5rem; max-width: 800px; margin-left: auto; margin-right: auto; text-align: left; background: var(--muted-bg); padding: 2.5rem; border-radius: 16px; border: 1px solid var(--border);">
+            <span class="section-tag">Deep Dive</span>
+            <h2 style="color: var(--text); font-size: 1.75rem; margin-bottom: 1.5rem; font-weight: 800;">Core Concepts</h2>
+            <div style="display: grid; gap: 2rem;">
+                <div style="border-left: 2px solid var(--primary); padding-left: 1.5rem;">
+                    <h4 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 800;">What is Pathfinding?</h4>
+                    <p style="color: var(--text-sec); font-size: 0.95rem;">Pathfinding is the plotting, by a computer application, of the shortest route between two points. It is a more practical variant on solving a maze.</p>
+                </div>
+                <div style="border-left: 2px solid var(--accent); padding-left: 1.5rem;">
+                    <h4 style="color: var(--accent); font-size: 1.1rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 800;">Heuristics (A* & Greedy)</h4>
+                    <p style="color: var(--text-sec); font-size: 0.95rem;">In A* and Greedy Search, a heuristic is a function that estimates the cost of the cheapest path from the current node to the goal. A common one is the Manhattan Distance.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="modern-footer">
+        <div class="footer-grid">
+            <div class="footer-section" style="margin-right: 3rem;">
+                <div class="logo" style="margin-bottom: 2rem;">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 4L26 9.5V22.5L16 28L6 22.5V9.5L16 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="16" cy="16" r="3" fill="currentColor"/>
+                        <path d="M16 7V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M16 19V25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M8.5 21L13.5 18.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M18.5 13.5L23.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M8.5 11L13.5 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M18.5 18.5L23.5 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <span style="font-weight: 800; color: var(--text); font-size: 1.2rem; margin-left: 0.5rem;">AlgoTutor LAB</span>
+                </div>
+                <p style="color: var(--text-sec); font-size: 0.95rem; line-height: 1.8; max-width: 320px;">
+                    An advanced interactive platform dedicated to mastering pathfinding algorithms through immersive visualization and theoretical foundations.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>Algorithms</h4>
+                <ul class="footer-links">
+                    <li><a href="algorithms/astar.html">A* Search</a></li>
+                    <li><a href="algorithms/bfs.html">Breadth-First (BFS)</a></li>
+                    <li><a href="algorithms/dfs.html">Depth-First (DFS)</a></li>
+                    <li><a href="algorithms/greedy.html">Greedy Best-First</a></li>
+                    <li><a href="algorithms/dijkstra.html">Dijkstra's Algorithm</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Platform</h4>
+                <ul class="footer-links">
+                    <li><a href="simulator.html">Simulator</a></li>
+                    <li><a href="learn.html">Learning Lab</a></li>
+                    <li><a href="about.html">Foundation</a></li>
+                    <li><a href="javascript:void(0)" id="openFeedback">Send Feedback</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Stats</h4>
+                <div class="footer-stat-item">
+                    <span class="footer-stat-val">5+</span>
+                    <span>Algorithms</span>
+                </div>
+                <div class="footer-stat-item">
+                    <span class="footer-stat-val">Real-time</span>
+                    <span>Visuals</span>
+                </div>
+                <div class="footer-stat-item">
+                    <span class="footer-stat-val">100%</span>
+                    <span>Free Forever</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>
+                Made with <span class="heart">❤️</span> by 
+                <a href="https://www.linkedin.com/in/muhammadahmadraza" target="_blank" class="dev-link-box">
+                    <svg viewBox="0 0 24 24" width="16" height="16"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    Muhammad Ahmad Raza
+                </a>
+            </div>
+            <div>&copy; 2026 AlgoTutor LAB. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <div id="feedbackModal" class="modal-overlay">
+        <div class="modal-container">
+            <button class="modal-close-btn" id="closeFeedback">&times;</button>
+            <h2 class="modal-title">Send Feedback</h2>
+            <p class="modal-subtitle">Help us improve AlgoTutor LAB with your thoughts.</p>
+            
+            <form id="feedbackForm">
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" id="feedbackEmail" class="form-input" placeholder="your@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Your Message</label>
+                    <textarea id="feedbackMessage" class="form-textarea" placeholder="How can we improve?" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Feedback Type</label>
+                    <div class="feedback-types">
+                        <div class="type-pill" data-type="Suggestion">Suggestion</div>
+                        <div class="type-pill" data-type="Error">Bug</div>
+                        <div class="type-pill active" data-type="General">General</div>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" id="cancelFeedback" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="js/common.js"></script>
+    <script type="module">
+        const cards = [
+            { q: "What is BFS?", a: "Breadth-First Search (BFS) explores all neighbor nodes at the current depth level before moving on to nodes at the next depth level. It guarantees the shortest path on unweighted grids." },
+            { q: "How does DFS differ from BFS?", a: "Depth-First Search (DFS) follows a path as far as possible before backtracking. While BFS uses a Queue (FIFO), DFS uses a Stack (LIFO) and does NOT guarantee the shortest path." },
+            { q: "What is the A* Heuristic?", a: "A* Search uses f(n) = g(n) + h(n), where g(n) is the cost from the start to node n, and h(n) is the estimated cost from n to the goal. It is both complete and optimal." },
+            { q: "What is Dijkstra's Algorithm?", a: "Dijkstra's finds the shortest path between nodes in a graph. On unweighted grids, it behaves identically to BFS, but it excels in weighted graphs." },
+            { q: "What is Greedy Best-First Search?", a: "Greedy BFS only considers the heuristic h(n). It can be much faster than A* but often finds suboptimal paths or gets stuck behind walls." },
+            { q: "What are Weighted Nodes?", a: "Weighted nodes represent different terrains. For example, a 'forest' node might cost 5 units to cross, while a 'road' node costs only 1." },
+            { q: "Is BFS optimal on weighted graphs?", a: "No. BFS only cares about the number of edges. For weighted graphs, you should use Dijkstra or A*." },
+            { q: "What is the Manhattan Distance?", a: "It is the distance between two points in a grid based on a strictly horizontal and/or vertical path. formula: |x1 - x2| + |y1 - y2|." },
+            { q: "What is an Admissible Heuristic?", a: "A heuristic is admissible if it never overestimates the actual cost to reach the goal. A* requires an admissible heuristic to guarantee optimality." },
+            { q: "What is Backtracking in DFS?", a: "Backtracking is the process where DFS returns to a previous node after reaching a dead end or a visited node to explore other unvisited branches." }
+        ];
+
+        let index = 0;
+        const card = document.getElementById('flashcard');
+        const questionEl = document.getElementById('question');
+        const answerEl = document.getElementById('answer');
+
+        function updateCard() {
+            card.classList.remove('is-flipped');
+            setTimeout(() => {
+                questionEl.innerText = cards[index].q;
+                answerEl.innerText = cards[index].a;
+            }, 200);
+        }
+
+        const flip = () => card.classList.toggle('is-flipped');
+        const next = () => { index = (index + 1) % cards.length; updateCard(); };
+        const prev = () => { index = (index - 1 + cards.length) % cards.length; updateCard(); };
+
+        document.getElementById('flipBtn').onclick = flip;
+        card.onclick = flip;
+        document.getElementById('nextBtn').onclick = next;
+        document.getElementById('prevBtn').onclick = prev;
+
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                flip();
+            }
+            if (e.code === 'ArrowRight') next();
+            if (e.code === 'ArrowLeft') prev();
+            if (e.code === 'Enter') {
+                e.preventDefault();
+                flip();
+            }
+        });
+
+        updateCard();
+    </script>
+</body>
+</html>

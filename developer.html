@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer | AlgoTutor LAB</title>
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--primary);">
+                <path d="M16 4L26 9.5V22.5L16 28L6 22.5V9.5L16 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="16" cy="16" r="3" fill="currentColor"/>
+                <path d="M16 7V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M16 19V25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M8.5 21L13.5 18.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M18.5 13.5L23.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M8.5 11L13.5 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M18.5 18.5L23.5 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            AlgoTutor LAB
+        </a>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div class="hamburger" id="menuToggle">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="simulator.html">Simulator</a></li>
+                <li class="nav-dropdown">
+                    <a href="learn.html">Learn</a>
+                    <ul class="dropdown-content">
+                        <li><a href="algorithms/astar.html">A* Search</a></li>
+                        <li><a href="algorithms/bfs.html">BFS</a></li>
+                        <li><a href="algorithms/dfs.html">DFS</a></li>
+                        <li><a href="algorithms/greedy.html">Greedy BFS</a></li>
+                        <li><a href="algorithms/dijkstra.html">Dijkstra</a></li>
+                    </ul>
+                </li>
+                <li><a href="developer.html" class="active">Developer</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌙</button>
+        </div>
+    </header>
+
+    <main style="padding: 4rem 5%;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <section style="background: var(--card-bg); padding: 4rem; border-radius: 24px; border: 1px solid var(--border); text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
+                <div style="background: var(--primary); width: 60px; height: 4px; margin: 0 auto 2rem; border-radius: 2px;"></div>
+                
+                <h1 style="font-size: 3rem; font-weight: 900; margin-bottom: 0.5rem; color: var(--text); letter-spacing: -1px;">Muhammad Ahmad Raza</h1>
+                <p style="color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 3rem; font-size: 0.9rem;">Computer Science Student @ COMSATS</p>
+                
+                <div style="text-align: left; margin-bottom: 4rem; background: var(--muted-bg); padding: 2.5rem; border-radius: 16px; border: 1px solid var(--border);">
+                    <h3 style="color: var(--text); font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem; border-left: 4px solid var(--primary); padding-left: 1.25rem;">About Me</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.9; color: var(--text-sec);">
+                        I am Muhammad Ahmad Raza, a Computer Science student at COMSATS University with strong foundations in C, C++, Java, Python, and SQL, and a solid grasp of object-oriented programming. I have experience developing WordPress websites and working with HTML and CSS, and I am currently advancing my knowledge of data structures. As an AI and machine learning enthusiast, I am passionate about continuous learning and applying my technical skills in practical projects.
+                    </p>
+                </div>
+
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem;">
+                    <a href="https://github.com/chahmadpk" target="_blank" class="social-link-btn">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.43.372.82 1.102.82 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://linkedin.com/in/chahmadpk" target="_blank" class="social-link-btn">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="mailto:chmahmadraza0@gmail.com" class="btn btn-primary dev-profile-btn" style="text-decoration: none;">
+                        <span>Contact Email</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="modern-footer">
+        <div class="footer-grid">
+            <div class="footer-section" style="margin-right: 3rem;">
+                <div class="logo" style="margin-bottom: 2rem;">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--primary);">
+                        <path d="M16 4L26 9.5V22.5L16 28L6 22.5V9.5L16 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="16" cy="16" r="3" fill="currentColor"/>
+                        <path d="M16 7V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M16 19V25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M8.5 21L13.5 18.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M18.5 13.5L23.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M8.5 11L13.5 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M18.5 18.5L23.5 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <span style="font-weight: 800; color: var(--text); font-size: 1.2rem; margin-left: 0.5rem;">AlgoTutor LAB</span>
+                </div>
+                <p style="color: var(--text-sec); font-size: 0.95rem; line-height: 1.8; max-width: 320px;">
+                    An advanced interactive platform dedicated to mastering pathfinding algorithms through immersive visualization and theoretical foundations.
+                </p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Algorithms</h4>
+                <ul class="footer-links">
+                    <li><a href="algorithms/astar.html">A* Search</a></li>
+                    <li><a href="algorithms/bfs.html">Breadth-First (BFS)</a></li>
+                    <li><a href="algorithms/dfs.html">Depth-First (DFS)</a></li>
+                    <li><a href="algorithms/greedy.html">Greedy Best-First</a></li>
+                    <li><a href="algorithms/dijkstra.html">Dijkstra's Algorithm</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Platform</h4>
+                <ul class="footer-links">
+                    <li><a href="simulator.html">Simulator</a></li>
+                    <li><a href="learn.html">Learning Lab</a></li>
+                    <li><a href="about.html">Foundation</a></li>
+                    <li><a href="javascript:void(0)" id="openFeedback">Send Feedback</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Stats</h4>
+                <div class="footer-stat-item">
+                    <span class="footer-stat-val">5+</span>
+                    <span>Algorithms</span>
+                </div>
+                <div class="footer-stat-item">
+                    <span class="footer-stat-val">Real-time</span>
+                    <span>Visuals</span>
+                </div>
+                <div class="footer-stat-item">
+                    <span class="footer-stat-val">100%</span>
+                    <span>Free Forever</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>
+                Made with <span class="heart">❤️</span> by 
+                <a href="https://www.linkedin.com/in/muhammadahmadraza" target="_blank" class="dev-link-box">
+                    <svg viewBox="0 0 24 24" width="16" height="16"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    Muhammad Ahmad Raza
+                </a>
+            </div>
+            <div>&copy; 2026 AlgoTutor LAB. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <div id="feedbackModal" class="modal-overlay">
+        <div class="modal-container">
+            <button class="modal-close-btn" id="closeFeedback">&times;</button>
+            <h2 class="modal-title">Send Feedback</h2>
+            <p class="modal-subtitle">Help us improve AlgoTutor LAB with your thoughts.</p>
+            
+            <form id="feedbackForm">
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" id="feedbackEmail" class="form-input" placeholder="your@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Your Message</label>
+                    <textarea id="feedbackMessage" class="form-textarea" placeholder="What's on your mind?" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Feedback Type</label>
+                    <div class="feedback-types">
+                        <div class="type-pill" data-type="Suggestion">Suggestion</div>
+                        <div class="type-pill" data-type="Error">Bug</div>
+                        <div class="type-pill active" data-type="General">General</div>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" id="cancelFeedback" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="js/common.js"></script>
+</body>
+</html>

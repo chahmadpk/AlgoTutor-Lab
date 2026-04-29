@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoTutor LAB | Pathfinding Visualization</title>
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 4L26 9.5V22.5L16 28L6 22.5V9.5L16 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="16" cy="16" r="3" fill="currentColor"/>
+                <path d="M16 7V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M16 19V25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M8.5 21L13.5 18.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M18.5 13.5L23.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M8.5 11L13.5 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M18.5 18.5L23.5 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            AlgoTutor LAB
+        </a>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div class="hamburger" id="menuToggle">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="simulator.html">Simulator</a></li>
+                <li class="nav-dropdown">
+                    <a href="learn.html">Learn</a>
+                    <ul class="dropdown-content">
+                        <li><a href="algorithms/astar.html">A* Search</a></li>
+                        <li><a href="algorithms/bfs.html">BFS</a></li>
+                        <li><a href="algorithms/dfs.html">DFS</a></li>
+                        <li><a href="algorithms/greedy.html">Greedy BFS</a></li>
+                        <li><a href="algorithms/dijkstra.html">Dijkstra</a></li>
+                    </ul>
+                </li>
+                <li><a href="developer.html">Developer</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌙</button>
+        </div>
+    </header>
+
+    <main style="padding: 4rem 5%;">
+        <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+            <h1 style="font-size: 3.5rem; font-weight: 900; margin-bottom: 1rem; letter-spacing: -1px; background: linear-gradient(to right, #38bdf8, #facc15); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                AlgoTutor LAB
+            </h1>
+            <p style="font-size: 1.25rem; color: var(--text-sec); margin-bottom: 3.5rem; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+                Many students struggle to understand <span class="highlight">algorithms</span> like A*, BFS, and DFS because they are often taught only in theory. Without seeing how they actually work, these concepts can feel abstract. <strong>AlgoTutor LAB</strong> makes learning interactive and visual.
+            </p>
+
+            <section style="margin-bottom: 6rem; text-align: left; background: var(--muted-bg); padding: 3rem; border-radius: 20px; border: 1px solid var(--border);">
+                <span class="section-tag">The Advantage</span>
+                <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--text);">Why AlgoTutor?</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem;">
+                <div>
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem; font-size: 1.2rem;">Visualize Action</h4>
+                    <p style="color: var(--text-sec); line-height: 1.6;">Learn algorithms by seeing them in action — not just memorizing them. Watch how nodes are added to frontiers and explored step-by-step with real-time feedback.</p>
+                </div>
+                <div>
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem; font-size: 1.2rem;">Practical Experiments</h4>
+                    <p style="color: var(--text-sec); line-height: 1.6;">Simulate real-world scenarios by adding obstacles and variable terrain costs. Test how algorithms adapt to the environment you design in our sandbox.</p>
+                </div>
+            </div>
+            </section>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 6rem;">
+                <div style="background: var(--card-bg); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border); text-align: left; display: flex; flex-direction: column;">
+                    <span class="section-tag">Core Engine</span>
+                    <h3 style="color: var(--text); font-size: 1.5rem; margin-bottom: 1rem;">Simulator Engine</h3>
+                    <p style="color: var(--text-sec); font-size: 0.95rem;">Visualize up to 3 algorithms simultaneously. Compare efficiency, nodes explored, and path accuracy in real-time.</p>
+                    <a href="simulator.html" class="btn btn-primary" style="display: inline-block; margin-top: 2rem; text-decoration: none; align-self: center; padding: 12px 24px;">Launch Simulator</a>
+                </div>
+                <div style="background: var(--card-bg); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border); text-align: left; display: flex; flex-direction: column;">
+                    <span class="section-tag">Education</span>
+                    <h3 style="color: var(--text); font-size: 1.5rem; margin-bottom: 1rem;">Learning Center</h3>
+                    <p style="color: var(--text-sec); font-size: 0.95rem;">Master algorithm concepts with interactive flashcards and step-by-step documentation.</p>
+                    <a href="learn.html" class="btn btn-primary" style="display: inline-block; margin-top: 2rem; text-decoration: none; align-self: center; padding: 12px 24px;">Start Learning</a>
+                </div>
+            </div>
+
+            <!-- Algorithm Overview Section -->
+            <section style="margin-bottom: 6rem; text-align: left;">
+                <span class="section-tag">Algorithm Directory</span>
+                <h2 style="font-size: 2rem; margin-bottom: 2rem; color: var(--text);">Choose Your Strategy</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                    <div style="padding: 1.5rem; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border);">
+                        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">A* Search</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Optimal & Complete. Uses heuristics to find the shortest path with maximum speed.</p>
+                        <a href="algorithms/astar.html" class="explore-link">Explore &rarr;</a>
+                    </div>
+                    <div style="padding: 1.5rem; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border);">
+                        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">BFS</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Layer-by-layer exploration. Guarantees shortest path on unweighted grids.</p>
+                        <a href="algorithms/bfs.html" class="explore-link">Explore &rarr;</a>
+                    </div>
+                    <div style="padding: 1.5rem; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border);">
+                        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">DFS</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Deep traversal. Fast to implement but rarely finds the shortest path.</p>
+                        <a href="algorithms/dfs.html" class="explore-link">Explore &rarr;</a>
+                    </div>
+                    <div style="padding: 1.5rem; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border);">
+                        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Greedy BFS</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Heuristic-driven. Extremely fast but often path-inefficient.</p>
+                        <a href="algorithms/greedy.html" class="explore-link">Explore &rarr;</a>
+                    </div>
+                    <div style="padding: 1.5rem; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border);">
+                        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Dijkstra's</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Weighted search. Guarantees the shortest path on any graph.</p>
+                        <a href="algorithms/dijkstra.html" class="explore-link">Explore &rarr;</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="developer" class="dev-section">
+                <span class="section-tag">Lead Developer</span>
+                <div class="dev-container">
+                    <div class="dev-info">
+                        <h2 class="dev-name">Muhammad Ahmad Raza</h2>
+                        <p class="dev-bio">
+                            Computer Science student at <strong>COMSATS University Islamabad, Vehari Campus</strong>. 
+                            Specializing in building scalable solutions and exploring advanced data structures with a focus on AI and machine learning.
+                        </p>
+                        <div class="dev-actions">
+                            <a href="https://github.com/chahmadpk" target="_blank" class="social-link-btn" style="text-decoration: none;">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.43.372.82 1.102.82 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                                <span>GitHub</span>
+                            </a>
+                            <a href="https://linkedin.com/in/chahmadpk" target="_blank" class="social-link-btn" style="text-decoration: none;">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                                <span>LinkedIn</span>
+                            </a>
+                            <a href="developer.html" class="btn btn-primary dev-profile-btn" style="text-decoration: none;">Full Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="modern-footer">
+        <div class="footer-grid">
+            <div class="footer-section" style="margin-right: 3rem;">
+                <div class="logo" style="margin-bottom: 2rem;">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 4L26 9.5V22.5L16 28L6 22.5V9.5L16 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="16" cy="16" r="3" fill="currentColor"/>
+                        <path d="M16 7V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M16 19V25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M8.5 21L13.5 18.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M18.5 13.5L23.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M8.5 11L13.5 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M18.5 18.5L23.5 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <span style="font-weight: 800; color: var(--text); font-size: 1.2rem; margin-left: 0.5rem;">AlgoTutor LAB</span>
+                </div>
+                <p style="color: var(--text-sec); font-size: 0.95rem; line-height: 1.8; max-width: 320px;">
+                    An advanced interactive platform dedicated to mastering pathfinding algorithms through immersive visualization and theoretical foundations.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>Algorithms</h4>
+                <ul class="footer-links">
+                    <li><a href="algorithms/astar.html">A* Search</a></li>
+                    <li><a href="algorithms/bfs.html">Breadth-First (BFS)</a></li>
+                    <li><a href="algorithms/dfs.html">Depth-First (DFS)</a></li>
+                    <li><a href="algorithms/greedy.html">Greedy Best-First</a></li>
+                    <li><a href="algorithms/dijkstra.html">Dijkstra's Algorithm</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Platform</h4>
+                <ul class="footer-links">
+                    <li><a href="simulator.html">Simulator</a></li>
+                    <li><a href="learn.html">Learning Lab</a></li>
+                    <li><a href="about.html">Foundation</a></li>
+                    <li><a href="javascript:void(0)" id="openFeedback">Send Feedback</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Stats</h4>
+                <div class="footer-stat-item">
+                    <span class="footer-stat-val">5+</span>
+                    <span>Algorithms</span>
+                </div>
+                <div class="footer-stat-item">
+                    <span class="footer-stat-val">Real-time</span>
+                    <span>Visuals</span>
+                </div>
+                <div class="footer-stat-item">
+                    <span class="footer-stat-val">100%</span>
+                    <span>Free Forever</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>
+                Made with <span class="heart">❤️</span> by 
+                <a href="https://www.linkedin.com/in/muhammadahmadraza" target="_blank" class="dev-link-box">
+                    <svg viewBox="0 0 24 24" width="16" height="16"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    Muhammad Ahmad Raza
+                </a>
+            </div>
+            <div>&copy; 2026 AlgoTutor LAB. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <div id="feedbackModal" class="modal-overlay">
+        <div class="modal-container">
+            <button class="modal-close-btn" id="closeFeedback">&times;</button>
+            <h2 class="modal-title">Send Feedback</h2>
+            <p class="modal-subtitle">Help us improve AlgoTutor LAB with your thoughts.</p>
+            
+            <form id="feedbackForm">
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" id="feedbackEmail" class="form-input" placeholder="your@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Your Message</label>
+                    <textarea id="feedbackMessage" class="form-textarea" placeholder="What's on your mind?" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Feedback Type</label>
+                    <div class="feedback-types">
+                        <div class="type-pill" data-type="Suggestion">Suggestion</div>
+                        <div class="type-pill" data-type="Error">Bug</div>
+                        <div class="type-pill active" data-type="General">General</div>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" id="cancelFeedback" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/common.js"></script>
+</body>
+</html>
