@@ -48,34 +48,53 @@
 
     <main style="padding: 3rem 5%; text-align: center;">
         <h1 style="color: var(--text); font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.5px;">Algorithm Mastery</h1>
-        <p style="color: var(--text-sec); margin-bottom: 1.5rem; font-size: 1rem;">Press <b>Space</b> to flip. Use <b>Arrow Keys</b> to navigate cards.</p>
-
+        
         <!-- Algorithm Sub-Menu for Mobile/Tablet -->
         <div class="learn-sub-menu">
-            <span class="section-tag" style="margin-bottom: 1rem; width: 100%;">Algorithm Library</span>
+            <span class="section-tag" style="margin-bottom: 1rem; width: 100%; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                Algorithm Library
+                <div style="background: var(--primary); width: 20px; height: 2px; border-radius: 1px; opacity: 0.3;"></div>
+            </span>
             <div class="sub-menu-grid">
                 <a href="algorithms/astar.html" class="sub-menu-card">
                     <div class="sub-menu-icon" style="background: rgba(14, 165, 233, 0.1); color: var(--primary);">A*</div>
                     <span>A* Search</span>
+                    <div class="sub-menu-arrow-circle">
+                        <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
                 </a>
                 <a href="algorithms/bfs.html" class="sub-menu-card">
                     <div class="sub-menu-icon" style="background: rgba(34, 197, 94, 0.1); color: var(--success);">BF</div>
                     <span>Breadth-First</span>
+                    <div class="sub-menu-arrow-circle">
+                        <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
                 </a>
                 <a href="algorithms/dfs.html" class="sub-menu-card">
                     <div class="sub-menu-icon" style="background: rgba(239, 68, 68, 0.1); color: var(--danger);">DF</div>
                     <span>Depth-First</span>
+                    <div class="sub-menu-arrow-circle">
+                        <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
                 </a>
                 <a href="algorithms/greedy.html" class="sub-menu-card">
                     <div class="sub-menu-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--accent);">GB</div>
                     <span>Greedy Best</span>
+                    <div class="sub-menu-arrow-circle">
+                        <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
                 </a>
                 <a href="algorithms/dijkstra.html" class="sub-menu-card">
                     <div class="sub-menu-icon" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">DK</div>
                     <span>Dijkstra</span>
+                    <div class="sub-menu-arrow-circle">
+                        <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
                 </a>
             </div>
         </div>
+
+        <p style="color: var(--text-sec); margin-bottom: 1.5rem; font-size: 1rem;">Press <b>Space</b> to flip. Use <b>Arrow Keys</b> to navigate cards.</p>
 
         <div class="flashcard-scene" id="cardContainer">
             <div class="card" id="flashcard">
@@ -212,7 +231,7 @@
         <div class="footer-bottom">
             <div>
                 Made with <span class="heart">❤️</span> by 
-                <a href="https://www.linkedin.com/in/muhammadahmadraza" target="_blank" class="dev-link-box">
+                <a href="https://www.linkedin.com/in/chahmadpk" target="_blank" class="dev-link-box">
                     <svg viewBox="0 0 24 24" width="16" height="16"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                     Muhammad Ahmad Raza
                 </a>
