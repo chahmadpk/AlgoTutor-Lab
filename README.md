@@ -1,4 +1,4 @@
 ## AlgoTutor Lab
 
-Project Live at:
+Project Live here:
                 https://chahmadpk.github.io/AlgoTutor-Lab/
